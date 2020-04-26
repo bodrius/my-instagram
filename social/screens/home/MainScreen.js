@@ -11,6 +11,9 @@ export const MainScreen = () => (
     <RootMain.Screen
       options={{
         headerShown: true,
+        // headerStyle:{
+        //   backgroundColor:"black",
+        //   height: 50
       }}
       name="All Posts"
       component={PostsScreen}

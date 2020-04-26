@@ -7,6 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 
 import { auth } from "../../firebase/config";
@@ -35,7 +37,7 @@ export const LoginScreen = ({ navigation }) => {
   };
 
   return (
-   
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
       style={{flex: 1}}
@@ -44,7 +46,7 @@ export const LoginScreen = ({ navigation }) => {
 
       <View style={{ ...StyleSheet.absoluteFill }}>
         <Image
-          source={ {uri:"https://iphonepapers.com/wp-content/uploads/papers.co-nd76-mountain-nature-sky-cloud-wood-fog-33-iphone6-wallpaper-1-250x444.jpg"}}
+          source={ {uri:"https://wallpapers.net/colourful-bubbles-4k-hd-abstract-wallpaper/download/750x1334.jpg"}}
           style={{ flex: 1, width: null, height: null }}
         />
       </View>
@@ -77,6 +79,7 @@ export const LoginScreen = ({ navigation }) => {
       
     </View>
 </KeyboardAvoidingView>
+</TouchableWithoutFeedback>
   );
 };
 
@@ -90,6 +93,7 @@ const styles = StyleSheet.create({
   register:{
     fontSize:17,
     marginTop:15,
+    color:"white"
   },
   form: {
     alignItems: "center",
@@ -121,8 +125,10 @@ const styles = StyleSheet.create({
     fontWeight:"600"
   },
   text:{
-    fontSize:35,
+    color:"white",
+    fontSize:40,
     fontWeight:"800",
-    marginBottom:50
+    marginBottom:50,
+    fontStyle:"italic"
   }
 });

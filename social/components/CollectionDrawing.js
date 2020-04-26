@@ -70,7 +70,7 @@ export const CollectionDrawing = ({ data }) => {
                 style={{
                   position: "absolute",
                   top: 93,
-                  left: 24,
+                  left: 27,
                   fontSize: 15,
                   fontWeight: "700",
                   color: "red",

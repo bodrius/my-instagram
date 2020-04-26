@@ -45,9 +45,9 @@ export const ProfileScreen = () => {
       <TouchableOpacity  style={{ position:"absolute", right:10, top:30,}}onPress={signOut}>
   <Text style={{fontWeight:"800", color:"#1e90ff", fontSize:20}}>LogOut - {userName}!</Text>
       </TouchableOpacity>
-      <Image style={{width:150, height:120, position:"absolute", top:70, left:10}} source={{uri:displayAvatar}}/> 
+      <Image style={{width:150, height:150, position:"absolute", top:70, left:10, borderRadius:10}} source={{uri:displayAvatar}}/> 
 
-      <View style={{ marginTop: 200 }}>
+      <View style={{ marginTop: 240 }}>
         <Text style={{fontSize:30, fontWeight:"600", textAlign:"center", marginBottom:20, fontStyle:"italic"}}>Your posts</Text>
         <CollectionDrawing data={currentUserPost} />
       </View>

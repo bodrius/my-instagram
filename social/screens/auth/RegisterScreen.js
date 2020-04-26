@@ -9,7 +9,9 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -90,6 +92,7 @@ export const RegisterScreen = ({ navigation }) => {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
       style={{flex: 1}}
@@ -97,7 +100,7 @@ export const RegisterScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={{ ...StyleSheet.absoluteFill }}>
         <Image
-          source={{uri:"https://www.ecopetit.cat/wpic/mpic/62-620145_mountain-wallpaper-iphone-8.jpg"}}
+          source={{uri:"https://wallpapers.net/colourful-bubbles-4k-hd-abstract-wallpaper/download/750x1334.jpg"}}
           style={{ flex: 1, width: null, height: null }}
           />
           
@@ -154,6 +157,7 @@ export const RegisterScreen = ({ navigation }) => {
 
     </View>
     </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 

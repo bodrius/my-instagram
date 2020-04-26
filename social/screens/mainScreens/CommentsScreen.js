@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-
-import { firestore } from "../../firebase/config";
 import {
   View,
   Text,
@@ -9,74 +7,97 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+import CommentList from "./CommentList";
+import { firestore } from "../../firebase/config";
 
-export const CommentsScreen = ({route}) => {
- 
+export const CommentsScreen = ({ route }) => {
   const [value, setValue] = useState("");
-  // console.log("NEEDS",route)
-
+  const [comments, setComments] = useState([]);
 
   const sendComment = async () => {
-      await firestore
-    .collection("posts")
-    .doc(route.params.item.id)
-    .collection("comments")
-    .add({
-      comment:value,
-    });
+    await firestore
+      .collection("posts")
+      .doc(route.params.item.id)
+      .collection("comments")
+      .add({
+        comment: value,
+        userName: route.params.item.userName,
+        userImage: route.params.item.image,
+      });
 
     setValue("");
   };
 
+  const getCommentsForPost = async (id) => {
+    await firestore
+      .collection("posts")
+      .doc(id)
+      .collection("comments")
+      .onSnapshot((data) => {
+        setComments(
+          data.docs.map((doc) => {
+            return { ...doc.data(), id: doc.id };
+          })
+        );
+      });
+  };
+
+  getCommentsForPost(route.params.item.id);
+
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, alignItems: "center", marginTop: 20 }}>
-        <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: "black",
-            borderRadius: 20,
-            width: 320,
-            height: 50,
-            paddingLeft: 40,
-            backgroundColor: "white",
-            fontSize: 20,
-          }}
-          placeholder="Enter your comment"
-          onChangeText={setValue}
-          value={value}
-        />
-        <View
-          style={{
-            borderBottomWidth: 1,
-            borderBottomColor: "black",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
+    <>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={{ flex: 1, alignItems: "center", marginTop: 20 }}>
+          <TextInput
             style={{
               borderWidth: 1,
               borderColor: "black",
               borderRadius: 20,
-              width: 200,
+              width: 320,
               height: 50,
-              textAlign: "center",
+              paddingLeft: 40,
               backgroundColor: "white",
-              marginTop: 20,
-              marginBottom: 20,
+              fontSize: 20,
+            }}
+            placeholder="Enter your comment"
+            onChangeText={setValue}
+            value={value}
+          />
+          <View
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: "black",
+              width: "100%",
               justifyContent: "center",
               alignItems: "center",
             }}
-            onPress={sendComment}
           >
-            <Text style={{ fontSize: 20, fontWeight: "600" }}>
-              Create comment
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: "black",
+                borderRadius: 20,
+                width: 200,
+                height: 50,
+                textAlign: "center",
+                backgroundColor: "white",
+                marginTop: 20,
+                marginBottom: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={sendComment}
+            >
+              <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                Create comment
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+
+      <CommentList comments={comments}/>
+     
+    </>
   );
 };
