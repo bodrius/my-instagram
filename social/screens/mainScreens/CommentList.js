@@ -1,8 +1,7 @@
 import React from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList, Text, StyleSheet, Image } from "react-native";
 
 const CommentList = ({ comments }) => {
-  console.log("NEEEDDDDDeeeddddd---->>>>>", comments);
   return (
       
     <FlatList
@@ -19,5 +18,12 @@ const CommentList = ({ comments }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+    image: {
+      width: 50,
+      height:50
+    },
+  });
 
 export default CommentList;

@@ -27,7 +27,7 @@ const initialState = {
 export const RegisterScreen = ({ navigation }) => {
   const [state, setState] = useState(initialState);
   const [message, setmessage] = useState(null);
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState("https://png.pngtree.com/svg/20161027/631929649c.png");
   const dispatch = useDispatch();
   useEffect(() => {
     getPermissionAsync();
@@ -99,11 +99,12 @@ export const RegisterScreen = ({ navigation }) => {
     >
     <View style={styles.container}>
       <View style={{ ...StyleSheet.absoluteFill }}>
+        
         <Image
           source={{uri:"https://wallpapers.net/colourful-bubbles-4k-hd-abstract-wallpaper/download/750x1334.jpg"}}
           style={{ flex: 1, width: null, height: null }}
           />
-          
+         
       </View>
       <Text style={{marginBottom:10}}>Choose your avatar</Text>
       <View style={styles.form}>
@@ -120,7 +121,7 @@ export const RegisterScreen = ({ navigation }) => {
             }}
             source={{
               uri:
-                "https://png.pngtree.com/svg/20161027/631929649c.png",
+              avatar,
             }}
           />
         </TouchableOpacity>
