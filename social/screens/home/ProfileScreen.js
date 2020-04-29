@@ -10,6 +10,7 @@ export const ProfileScreen = () => {
   const [displayAvatar, setDisplayAvatar] = useState("https://png.pngtree.com/svg/20161027/631929649c.png")
 
 
+
   useEffect(() => {
     getCurrentUserPosts();
     createAvatar(avatar);
@@ -21,7 +22,6 @@ export const ProfileScreen = () => {
     const uniqueId = Date.now().toString();
     await storage.ref(`avatars/${uniqueId}`).put(file);
     const url = await storage.ref("avatars").child(uniqueId).getDownloadURL();
-    // console.log("displayAvatar", displayAvatar);
     setDisplayAvatar(url)
   };
 
@@ -43,10 +43,10 @@ export const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity  style={{ position:"absolute", right:10, top:30,}}onPress={signOut}>
-  <Text style={{fontWeight:"800", color:"#1e90ff", fontSize:20}}>LogOut - {userName}!</Text>
+  <Text style={{fontWeight:"800", color:"#1e90ff", fontSize:20}}>LogOut</Text>
       </TouchableOpacity>
       <Image style={{width:150, height:150, position:"absolute", top:70, left:10, borderRadius:10}} source={{uri:displayAvatar}}/> 
-
+      <Text style={{position:"absolute", top:70, left:220, fontWeight:"600", fontSize:20}}> Welcome {userName}!</Text>
       <View style={{ marginTop: 240 }}>
         <Text style={{fontSize:30, fontWeight:"600", textAlign:"center", marginBottom:20, fontStyle:"italic"}}>Your posts</Text>
         <CollectionDrawing data={currentUserPost} />

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import {
   View,
   Text,
@@ -11,9 +13,11 @@ import CommentList from "./CommentList";
 import { firestore } from "../../firebase/config";
 
 export const CommentsScreen = ({ route }) => {
+  const { avatar, userName } = useSelector((state) => state.user);
+
   const [value, setValue] = useState("");
   const [comments, setComments] = useState([]);
-
+  
   const sendComment = async () => {
     await firestore
       .collection("posts")
@@ -21,8 +25,8 @@ export const CommentsScreen = ({ route }) => {
       .collection("comments")
       .add({
         comment: value,
-        userName: route.params.item.userName,
-        userImage: route.params.item.image,
+        avatar,
+        userName
       });
 
     setValue("");
@@ -42,12 +46,16 @@ export const CommentsScreen = ({ route }) => {
       });
   };
 
-  getCommentsForPost(route.params.item.id);
+  useEffect(() => {
+    getCommentsForPost(route.params.item.id);
+  }, [])
+
+  
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={{ flex: 1, alignItems: "center", marginTop: 20 }}>
+        <View style={{  alignItems: "center", marginTop: 20 }}>
           <TextInput
             style={{
               borderWidth: 1,
@@ -95,9 +103,7 @@ export const CommentsScreen = ({ route }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-
       <CommentList comments={comments}/>
-     
     </>
   );
 };

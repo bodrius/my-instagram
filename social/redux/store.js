@@ -13,7 +13,6 @@ const initialState = {
 
 const reducer = {
   CURRENT_USER: (state, { payload }) => {
-    // console.log("state --->", state);
     return {
       ...state,
       userName: payload.userName,
@@ -22,6 +21,9 @@ const reducer = {
       avatar: payload.avatar,
     };
   },
+
+
+  
   USER_SIGNOUT: () => initialState,
 };
 

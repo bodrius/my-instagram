@@ -19,17 +19,21 @@ export const PostsScreen = () => {
 
   const currentUser = async () => {
     const currentUser = await auth.currentUser;
-
-    // console.log("currentUser ----------------------> ", currentUser);
-
-    
+    dispatch({
+      type: "CURRENT_USER",
+      payload: {
+        userName: currentUser.displayName,
+        userId: currentUser.uid,
+        avatar: currentUser.photoURL,
+      },
+    });
   };
+  
 
   const getCollection = async () => {
     await firestore.collection("posts").onSnapshot((data) => {
       setAllPosts(
         data.docs.map((doc) => {
-          // console.log(doc.id);
           return { ...doc.data(), id: doc.id};
         })
       );
