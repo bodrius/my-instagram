@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FlatList,
   TouchableOpacity,
@@ -14,11 +14,8 @@ import { firestore } from "../firebase/config";
 export const CollectionDrawing = ({ data }) => {
   const navigation = useNavigation();
 
-  // console.log("navigation", navigation);
-
   const getCurrentUserPost = async (id) => {
     const data = await firestore.collection("posts").doc(id).get();
-    // console.log("data.data()", data);
     await firestore
       .collection("posts")
       .doc(id)
@@ -32,7 +29,6 @@ export const CollectionDrawing = ({ data }) => {
       data={data}
       keyExtractor={(item, indx) => indx.toString()}
       renderItem={({ item }) => {
-        // console.log("post", item);
         return (
           <View
             style={{
@@ -82,7 +78,6 @@ export const CollectionDrawing = ({ data }) => {
 
             <TouchableOpacity
               activeOpacity={0.7}
-              // style={styles.like}
               onPress={() => navigation.navigate("Comments", { item })}
             >
               <Ionicons
@@ -109,5 +104,3 @@ const styles = StyleSheet.create({
     marginLeft: 70,
   },
 });
-
-//----------

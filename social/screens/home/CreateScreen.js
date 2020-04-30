@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { firestore, storage } from "../../firebase/config";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,7 +12,6 @@ export const CreateScreen = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [takePhoto, settakePhoto] = useState("");
   const [photo, setphoto] = useState("");
-  // const [location, setlocation] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -55,18 +47,17 @@ export const CreateScreen = () => {
     await storage.ref(`image/${uniqueId}`).put(file);
 
     const url = await storage.ref("image").child(uniqueId).getDownloadURL();
-    // console.log("url", url);
     createPost(url);
   };
 
   const createPost = async (img) => {
     let location = await Location.getCurrentPositionAsync({});
-    console.log(userName)
+    console.log(userName);
     await firestore.collection("posts").add({
       image: img,
       userId,
       userName,
-      likes:0,
+      likes: 0,
       location: {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -97,51 +88,48 @@ export const CreateScreen = () => {
           }}
         >
           <Ionicons
-               style={{position:"absolute", top:40, right:20,}}
-                    name="ios-reverse-camera"
-                    size={ 45 }
-                    color={"red"}
-                  />
+            style={{ position: "absolute", top: 40, right: 20 }}
+            name="ios-reverse-camera"
+            size={45}
+            color={"red"}
+          />
         </TouchableOpacity>
       </Camera>
-
-      
 
       <TouchableOpacity
         onPress={snap}
         style={{
-          width:120,
+          width: 120,
           height: 40,
           borderRadius: 5,
           borderWidth: 1,
           borderColor: "black",
-          position:"absolute",
-          bottom:18,
-          left:18,
-          alignItems: "center",
-    justifyContent: "center",
-        }}
-      >
-        <Text style={{ fontSize:16 , fontWeight:"600"}}>Make photo</Text>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity
-        onPress={createPost}
-        style={{
-          width:120,
-          height: 40,
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: "black",
-          position:"absolute",
-          bottom:18,
-          right:18,
+          position: "absolute",
+          bottom: 18,
+          left: 18,
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <Text style={{ fontSize:16 , fontWeight:"600"}}>Create post</Text>
+        <Text style={{ fontSize: 16, fontWeight: "600" }}>Make photo</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={createPost}
+        style={{
+          width: 120,
+          height: 40,
+          borderRadius: 5,
+          borderWidth: 1,
+          borderColor: "black",
+          position: "absolute",
+          bottom: 18,
+          right: 18,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ fontSize: 16, fontWeight: "600" }}>Create post</Text>
       </TouchableOpacity>
     </View>
   );

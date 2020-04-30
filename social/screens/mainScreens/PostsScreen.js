@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, RefreshControl} from "react-native";
+import { StyleSheet, View, ScrollView, RefreshControl } from "react-native";
 import { useDispatch } from "react-redux";
 import { auth, firestore } from "../../firebase/config";
 import { CollectionDrawing } from "../../components/CollectionDrawing";
@@ -28,44 +28,41 @@ export const PostsScreen = () => {
       },
     });
   };
-  
 
   const getCollection = async () => {
     await firestore.collection("posts").onSnapshot((data) => {
       setAllPosts(
         data.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id};
+          return { ...doc.data(), id: doc.id };
         })
       );
     });
   };
 
-
   function wait(timeout) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(resolve, timeout);
     });
   }
-  
-    const [refreshing, setRefreshing] = React.useState(false);
-  
-    const onRefresh = React.useCallback(() => {
-      setRefreshing(true);
-  
-      wait(1500).then(() => setRefreshing(false));
-    }, [refreshing]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(1500).then(() => setRefreshing(false));
+  }, [refreshing]);
 
   return (
     <View style={styles.container}>
-       <ScrollView
+      <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-      <View style={{ marginTop: 10 }}>
-        <CollectionDrawing data={allPosts} />
-      </View>
+        <View style={{ marginTop: 10 }}>
+          <CollectionDrawing data={allPosts} />
+        </View>
       </ScrollView>
     </View>
   );

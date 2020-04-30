@@ -11,20 +11,11 @@ export const MainScreen = () => (
     <RootMain.Screen
       options={{
         headerShown: true,
-        // headerStyle:{
-        //   backgroundColor:"black",
-        //   height: 50
       }}
       name="All Posts"
       component={PostsScreen}
     />
-    <RootMain.Screen
-      name="Map"
-      component={MapScreen}
-    />
-    <RootMain.Screen
-      name="Comments"
-      component={CommentsScreen}
-    />
+    <RootMain.Screen name="Map" component={MapScreen} />
+    <RootMain.Screen name="Comments" component={CommentsScreen} />
   </RootMain.Navigator>
 );

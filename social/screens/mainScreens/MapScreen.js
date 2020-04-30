@@ -1,13 +1,10 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 export const MapScreen = ({ route }) => (
   <View>
-    <MapView
-      style={{ width: "100%", height: "100%" }}
-      minZoomLevel={5}
-    >
+    <MapView style={{ width: "100%", height: "100%" }} minZoomLevel={5}>
       <Marker
         title="like photo"
         coordinate={{

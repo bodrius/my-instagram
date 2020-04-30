@@ -48,19 +48,13 @@ export const RegisterScreen = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-    // console.log("result", result);
     setAvatar(result.uri);
   };
 
   const currentState = () => {
-    // console.log("state", state);
     Alert.alert(JSON.stringify(state));
     setState(initialState);
   };
-
-  // useEffect(() => {
-  //   currentUser();
-  // }, []);
 
   const currentUser = async () => {
     const currentUser = await auth.currentUser;
@@ -73,14 +67,12 @@ export const RegisterScreen = ({ navigation }) => {
         avatar: currentUser.photoURL,
       },
     });
-    // console.log("currentUser", currentUser);
   };
 
   const registerUser = async () => {
     const { email, password, displayName } = state;
     try {
       const user = await auth.createUserWithEmailAndPassword(email, password);
-      // console.log("user", user);
       await user.user.updateProfile({
         displayName: displayName,
         photoURL: avatar,
@@ -147,7 +139,6 @@ export const RegisterScreen = ({ navigation }) => {
               onChangeText={(value) => setState({ ...state, password: value })}
               value={state.password}
             />
-
             {message && <Text>{message}</Text>}
             <TouchableOpacity style={styles.btn} onPress={registerUser}>
               <Text style={styles.btnTitle}>Register</Text>

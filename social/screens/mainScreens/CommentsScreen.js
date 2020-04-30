@@ -17,7 +17,7 @@ export const CommentsScreen = ({ route }) => {
 
   const [value, setValue] = useState("");
   const [comments, setComments] = useState([]);
-  
+
   const sendComment = async () => {
     await firestore
       .collection("posts")
@@ -26,7 +26,7 @@ export const CommentsScreen = ({ route }) => {
       .add({
         comment: value,
         avatar,
-        userName
+        userName,
       });
 
     setValue("");
@@ -48,14 +48,12 @@ export const CommentsScreen = ({ route }) => {
 
   useEffect(() => {
     getCommentsForPost(route.params.item.id);
-  }, [])
-
-  
+  }, []);
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={{  alignItems: "center", marginTop: 20 }}>
+        <View style={{ alignItems: "center", marginTop: 20 }}>
           <TextInput
             style={{
               borderWidth: 1,
@@ -103,7 +101,7 @@ export const CommentsScreen = ({ route }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <CommentList comments={comments}/>
+      <CommentList comments={comments} />
     </>
   );
 };
